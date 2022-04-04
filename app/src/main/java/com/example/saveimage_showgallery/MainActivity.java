@@ -5,9 +5,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 newBitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
                 Log.i("jeongmin", "if 문 속 : 저장은 함");
                 Toast.makeText(getApplicationContext(), "이미지를 저장했습니다.\n이미지 이름 : " + fileName, Toast.LENGTH_SHORT).show();
+                // 이미지 스캐닝 해서 갤러리에서 보이게 해 주는 코드
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(tempFile)));
             } else {
                 // 같은 이름의 파일 존재
                 Log.i("jeongmin", "else 문 속 : 같은 이름의 파일 존재:"+fileName);
